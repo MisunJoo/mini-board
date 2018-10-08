@@ -37,6 +37,7 @@ public class ArticleDao {
                 article.setTitle(rs.getString(5));
                 article.setContent(rs.getString(6));
                 Date sqlDate = rs.getDate(7);
+
                 java.util.Date date = new java.util.Date(sqlDate.getTime());
                 LocalDateTime ldt = date.toInstant()
                         .atZone(ZoneId.systemDefault())
