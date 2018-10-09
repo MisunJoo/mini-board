@@ -4,10 +4,7 @@ import my.examples.miniboard.config.DBConfig;
 import my.examples.miniboard.servlet.Article;
 import my.examples.miniboard.servlet.User;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -35,7 +32,7 @@ public class UserDao {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getLong(1));
-                user.setUser_name(rs.getString(2));
+                user.setUserName(rs.getString(2));
 
                 userList.add(user);
             }
@@ -68,10 +65,31 @@ public class UserDao {
         return count;
     }
 
+    public User getUser(String userName, String password) {
+        User user = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
+        try {
+            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
+            String sql = "SELECT * FROM user WHERE user_name = ? AND password = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, userName);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
 
+            if (rs.next()) {
+                user = new User();
+                user.setUserName(rs.getString(1));
+                user.setPassword(rs.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConfig.close(conn, ps, rs);
+        }
 
-
+        return user;
     }
-
-
+}
