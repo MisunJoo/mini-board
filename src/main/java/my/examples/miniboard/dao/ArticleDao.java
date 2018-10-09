@@ -31,7 +31,7 @@ public class ArticleDao {
             while (rs.next()) {
                 Article article = new Article();
                 article.setId(rs.getLong(1));
-                article.setUserId(rs.getString(2));
+                article.setUserId(rs.getLong(2));
                 article.setCountry(rs.getString(3));
                 article.setCategory(rs.getString(4));
                 article.setTitle(rs.getString(5));
@@ -64,7 +64,7 @@ public class ArticleDao {
             conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
             String sql = "INSERT INTO article(id, user_id, country, category, title, content, reg_date) VALUES (null, ?, ?, ?, ?, ? now())";
             ps = conn.prepareStatement(sql);
-            ps.setString(1, article.getUserId());
+            ps.setLong(1, article.getUserId());
             ps.setString(2, article.getCountry());
             ps.setString(3, article.getCategory());
             ps.setString(4, article.getTitle());
