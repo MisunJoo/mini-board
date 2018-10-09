@@ -7,12 +7,16 @@ public class User {
 	password varchar(20),
 	primary key(id)
      */
-    private long id;
-    private String userId;
+    private long id; //**왜 long일까?
+    private String user_name;
     private String password;
 
+    public User(){
+
+    }
+
     public User(String userId, String password) {
-        this.userId = userId;
+        this.user_name = user_name;
         this.password = password;
     }
 
@@ -24,12 +28,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public String getPassword() {
