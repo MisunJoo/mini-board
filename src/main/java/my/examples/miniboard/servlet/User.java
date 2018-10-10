@@ -8,15 +8,15 @@ public class User {
 	primary key(id)
      */
     private long id; //**왜 long일까?
-    private String user_name;
+    private String userName;
     private String password;
 
     public User(){
 
     }
 
-    public User(String userId, String password) {
-        this.user_name = user_name;
+    public User(String userName, String password) {
+        this.userName = userName;
         this.password = password;
     }
 
@@ -28,12 +28,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
