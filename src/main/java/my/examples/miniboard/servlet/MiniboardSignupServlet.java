@@ -27,12 +27,13 @@ public class MiniboardSignupServlet extends HttpServlet {
         String password = req.getParameter("password");
         List<User> userList = new ArrayList<>();
         String getName, getPassword;
+        int count = 0;
 
         System.out.println(userName + "/" + password);
 
         User user = new User(userName, password);
         UserDao userDao = new UserDao();
-        userDao.addUser(user);
+        count = userDao.addUser(user);
 
 
         userList = userDao.getUserList();

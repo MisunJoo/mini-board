@@ -45,9 +45,10 @@ public class UserDao {
         return userList;
     }
 
-    public void addUser(User user){
+    public int addUser(User user){
         Connection conn = null;
         PreparedStatement ps = null;
+        int count = 0;
         try{
             conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
             String sql = "insert into user (id, user_name, password) VALUES (null, ?, ?)";
@@ -56,11 +57,15 @@ public class UserDao {
             ps.setString(1, user.getUserName());
             ps.setString(2, user.getPassword());
 
+            count = ps.executeUpdate();
+
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {
             DBConfig.close(conn, ps);
         }
+
+        return count;
     }
 
     public User getUser(String userName) {
