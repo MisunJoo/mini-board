@@ -33,7 +33,7 @@ public class MiniboardLoginServlet extends HttpServlet {
         if (!user.getPassword().equals(password)) {
             resp.sendRedirect("/miniboard/login");
         }
-        // 비밀번호 일치할 경우, session에 user 정보 저장 후 index로 redirect
+        // 비밀번호 일치할 경우, session에 user 정보 set하고 index로 redirect
         else {
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("authUser", user);
