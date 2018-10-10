@@ -83,7 +83,8 @@ public class UserDao {
 
             if (rs.next()) {
                 user = new User();
-                user.setUserName(rs.getString(1));
+                user.setUserName(rs.getString(2));
+                user.setPassword(rs.getString(3));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -15,9 +15,18 @@ import java.io.IOException;
 public class MiniboardLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // login 페이지로 forwarding
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
-        dispatcher.forward(req, resp);
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("authUser");
+
+        if (user != null) {
+            // 이미 로그인되어 있으면, list로 redirect
+            resp.sendRedirect("/miniboard/list");
+        }
+        else {
+            // login 페이지로 forwarding
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
+            dispatcher.forward(req, resp);
+        }
     }
 
     @Override
@@ -28,6 +37,7 @@ public class MiniboardLoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         UserDao userDao = new UserDao();
         User user = userDao.getUser(userName);
+        System.out.println("로그인시도 => userName: " + userName + ", password: " + password);
 
         // 비밀번호 일치하지 않을 경우, login 페이지로 redirect
         if (!user.getPassword().equals(password)) {
@@ -35,6 +45,8 @@ public class MiniboardLoginServlet extends HttpServlet {
         }
         // 비밀번호 일치할 경우, session에 user 정보 set하고 index로 redirect
         else {
+            System.out.println("getUser(userName)으로 가져온 user 객체의 userName: " + user.getUserName());
+            System.out.println("getUser(userName)으로 가져온 user 객체의 password: " + user.getPassword());
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("authUser", user);
             resp.sendRedirect("/"); // index로 redirect
