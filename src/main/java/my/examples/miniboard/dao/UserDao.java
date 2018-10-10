@@ -59,6 +59,8 @@ public class UserDao {
             ps.setString(1, user.getUserName());
             ps.setString(2, user.getPassword());
 
+
+
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {

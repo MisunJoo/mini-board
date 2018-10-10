@@ -30,11 +30,12 @@ public class MiniboardSignupServlet extends HttpServlet {
 
         System.out.println(userName + "/" + password);
 
+        /* db에 회원 정보 추가 */
         User user = new User(userName, password);
         UserDao userDao = new UserDao();
         userDao.addUser(user);
 
-
+        /* db에 추가한 회원 정보 확인. (첫 번쨰 값만) */
         userList = userDao.getUserList();
         getName = userList.get(0).getUserName();
         getPassword = userList.get(0).getPassword();
@@ -43,7 +44,7 @@ public class MiniboardSignupServlet extends HttpServlet {
 
 
 
-        //메인화면으로 이동
+        /* 메인화면으로 이동 */
         resp.sendRedirect("/");
 
 
