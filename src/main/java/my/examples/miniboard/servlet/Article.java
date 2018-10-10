@@ -15,7 +15,7 @@ public class Article {
 	foreign key user_id references TB_USER(user_id)
      */
     private Long id;
-    private String userId;
+    private Long userId;
     private String country;
     private String category;
     private String title;
@@ -26,7 +26,7 @@ public class Article {
         this.regDate = LocalDateTime.now();
     }
 
-    public Article(String userId, String country, String category, String title, String content) {
+    public Article(Long userId, String country, String category, String title, String content) {
         this();
         this.userId = userId;
         this.country = country;
@@ -43,11 +43,11 @@ public class Article {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

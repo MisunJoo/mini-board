@@ -4,10 +4,7 @@ import my.examples.miniboard.config.DBConfig;
 import my.examples.miniboard.servlet.Article;
 import my.examples.miniboard.servlet.User;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -48,9 +45,10 @@ public class UserDao {
         return userList;
     }
 
-    public void addUser(User user){
+    public int addUser(User user){
         Connection conn = null;
         PreparedStatement ps = null;
+        int count = 0;
         try{
             conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
             String sql = "insert into user (id, user_name, password) VALUES (null, ?, ?)";
@@ -59,6 +57,7 @@ public class UserDao {
             ps.setString(1, user.getUserName());
             ps.setString(2, user.getPassword());
 
+            count = ps.executeUpdate();
 
 
         }catch(Exception ex){
@@ -66,12 +65,33 @@ public class UserDao {
         }finally {
             DBConfig.close(conn, ps);
         }
+
+        return count;
     }
 
+    public User getUser(String userName) {
+        User user = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
+        try {
+            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
+            String sql = "SELECT * FROM user WHERE user_name = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, userName);
+            rs = ps.executeQuery();
 
+            if (rs.next()) {
+                user = new User();
+                user.setUserName(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConfig.close(conn, ps, rs);
+        }
 
-
+        return user;
     }
-
-
+}
