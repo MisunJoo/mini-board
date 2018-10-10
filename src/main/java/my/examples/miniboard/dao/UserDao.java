@@ -65,7 +65,7 @@ public class UserDao {
         return count;
     }
 
-    public User getUser(String userName, String password) {
+    public User getUser(String userName) {
         User user = null;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -73,16 +73,14 @@ public class UserDao {
 
         try {
             conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "SELECT * FROM user WHERE user_name = ? AND password = ?";
+            String sql = "SELECT * FROM user WHERE user_name = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, userName);
-            ps.setString(2, password);
             rs = ps.executeQuery();
 
             if (rs.next()) {
                 user = new User();
                 user.setUserName(rs.getString(1));
-                user.setPassword(rs.getString(2));
             }
         } catch (SQLException e) {
             e.printStackTrace();

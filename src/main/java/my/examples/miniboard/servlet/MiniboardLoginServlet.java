@@ -27,7 +27,7 @@ public class MiniboardLoginServlet extends HttpServlet {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         UserDao userDao = new UserDao();
-        User user = userDao.getUser(userName, password);
+        User user = userDao.getUser(userName);
 
         // 비밀번호 일치하지 않을 경우, login 페이지로 redirect
         if (!user.getPassword().equals(password)) {
