@@ -34,8 +34,8 @@ public class UserDao {
             // DB에서 받은 값을 각 User 객체에 set하고 list에 add한다.
             while (rs.next()) {
                 User user = new User();
-                user.setId(rs.getLong(1));
-                user.setUser_name(rs.getString(2));
+                user.setUserName(rs.getString(2));
+                user.setPassword(rs.getString(3));
 
                 userList.add(user);
             }
@@ -48,24 +48,22 @@ public class UserDao {
         return userList;
     }
 
-    public int addUser(User user){
-        int count = 0;
+    public void addUser(User user){
         Connection conn = null;
         PreparedStatement ps = null;
         try{
             conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "insert into user (id, user_name, content, regdate)\n";
+            String sql = "insert into user (id, user_name, password) VALUES (null, ?, ?)";
             ps = conn.prepareStatement(sql);
 
-            //setString
+            ps.setString(1, user.getUserName());
+            ps.setString(2, user.getPassword());
 
-            count = ps.executeUpdate();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {
             DBConfig.close(conn, ps);
         }
-        return count;
     }
 
 

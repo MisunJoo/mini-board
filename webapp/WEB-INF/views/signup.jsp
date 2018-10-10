@@ -13,8 +13,8 @@
 <body>
 <h1>login</h1>
 
-<form method="post" action="/guestbook/signup">
-    아이디 : <input type="text" name="user_name"><br>
+<form method="post" action="/miniboard/signup">
+    아이디 : <input type="text" name="userName"><br>
     암호 : <input type="text" name="password"><br>
 
     <input type="submit">

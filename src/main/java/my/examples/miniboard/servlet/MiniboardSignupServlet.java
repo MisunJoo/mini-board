@@ -1,5 +1,7 @@
 package my.examples.miniboard.servlet;
 
+import my.examples.miniboard.dao.UserDao;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/miniboard/signup")
 public class MiniboardSignupServlet extends HttpServlet {
@@ -19,11 +23,23 @@ public class MiniboardSignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         /* 아이디와 암호를 읽어들이기 */
-        String user_name = req.getParameter("user_name");
+        String userName = req.getParameter("userName");
         String password = req.getParameter("password");
+        List<User> userList = new ArrayList<>();
+        String getName, getPassword;
 
-        System.out.println(user_name + "/" + password);
+        System.out.println(userName + "/" + password);
 
+        User user = new User(userName, password);
+        UserDao userDao = new UserDao();
+        userDao.addUser(user);
+
+
+        userList = userDao.getUserList();
+        getName = userList.get(0).getUserName();
+        getPassword = userList.get(0).getPassword();
+
+        System.out.println(getName + "//" + getPassword);
 
 
 
