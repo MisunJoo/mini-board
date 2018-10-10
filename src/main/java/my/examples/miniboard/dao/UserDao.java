@@ -69,7 +69,7 @@ public class UserDao {
     }
 
     public User getUser(String userName) {
-        User user = null;
+        User user = new User();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -82,8 +82,8 @@ public class UserDao {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                user = new User();
-                user.setUserName(rs.getString(1));
+                user.setUserName(rs.getString(2));
+                user.setPassword(rs.getString(3));
             }
         } catch (SQLException e) {
             e.printStackTrace();
