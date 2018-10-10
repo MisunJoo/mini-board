@@ -4,10 +4,7 @@ import my.examples.miniboard.config.DBConfig;
 import my.examples.miniboard.servlet.Article;
 import my.examples.miniboard.servlet.User;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -66,10 +63,29 @@ public class UserDao {
         }
     }
 
+    public User getUser(String userName) {
+        User user = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
+        try {
+            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
+            String sql = "SELECT * FROM user WHERE user_name = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, userName);
+            rs = ps.executeQuery();
 
+            if (rs.next()) {
+                user = new User();
+                user.setUserName(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConfig.close(conn, ps, rs);
+        }
 
-
+        return user;
     }
-
-
+}

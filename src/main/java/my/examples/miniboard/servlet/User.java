@@ -2,7 +2,7 @@ package my.examples.miniboard.servlet;
 
 public class User {
     /*
-    id int not null, auto_increment,
+    id int not null auto_increment,
 	user_id varchar(20),
 	password varchar(20),
 	primary key(id)
@@ -11,7 +11,7 @@ public class User {
     private String userName;
     private String password;
 
-    public User(){
+    public User() {
 
     }
 
