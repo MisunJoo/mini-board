@@ -31,8 +31,8 @@ public class UserDao {
             // DB에서 받은 값을 각 User 객체에 set하고 list에 add한다.
             while (rs.next()) {
                 User user = new User();
-                user.setId(rs.getLong(1));
                 user.setUserName(rs.getString(2));
+                user.setPassword(rs.getString(3));
 
                 userList.add(user);
             }
