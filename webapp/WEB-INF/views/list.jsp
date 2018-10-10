@@ -11,8 +11,11 @@
 
 <!-- 게시글 목록을 출력한다. -->
 <c:forEach items="${requestScope.articleList}" var="article">
-    이름 : ${article.title} <br>
-    내용 : ${article.content} <br>
+    글종류 : ${article.category}<br>
+    글번호 : ${article.id}<br>
+    제목 : ${article.title} <br>
+    글쓴이 : ${article.userId} <br>
+    등록일 : ${article.reg} <br>
 </c:forEach>
 
 

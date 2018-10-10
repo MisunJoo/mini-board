@@ -33,6 +33,14 @@ public class MiniboardSignupServlet extends HttpServlet {
         /* db에 회원 정보 추가 */
         User user = new User(userName, password);
         UserDao userDao = new UserDao();
+        userList = userDao.getUserList();
+
+
+        /* 중복 확인*/
+        //if(userName == userD)
+
+        /* 아이디 혹은 비밀번호를 입력하지 않음*/
+
         userDao.addUser(user);
 
         /* db에 추가한 회원 정보 확인. (첫 번쨰 값만) */
