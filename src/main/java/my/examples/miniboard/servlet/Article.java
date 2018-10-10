@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Article {
     /*
-    id int not null, auto_increment,
+    id int not null auto_increment,
 	user_id varchar(20),
 	country varchar(10),
 	category varchar(10),
@@ -12,7 +12,7 @@ public class Article {
 	content varchar(500),
 	reg_date Date,
 	primary key(id),
-	foreign key user_id references TB_USER(user_id)
+	foreign key user_id references USER(user_id)
      */
     private Long id;
     private Long userId;
