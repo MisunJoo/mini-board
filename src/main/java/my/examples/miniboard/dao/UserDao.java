@@ -83,6 +83,7 @@ public class UserDao {
 
             if (rs.next()) {
                 user = new User();
+                user.setId(rs.getLong(1));
                 user.setUserName(rs.getString(2));
                 user.setPassword(rs.getString(3));
             }

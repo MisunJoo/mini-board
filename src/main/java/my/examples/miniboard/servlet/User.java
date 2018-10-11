@@ -1,12 +1,6 @@
 package my.examples.miniboard.servlet;
 
 public class User {
-    /*
-    id int not null auto_increment,
-	user_id varchar(20),
-	password varchar(20),
-	primary key(id)
-     */
     private long id; //**왜 long일까?
     private String userName;
     private String password;
