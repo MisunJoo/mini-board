@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private static final String dbUrl = "jdbc:mysql://localhost:3306/fcdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-    private static final String dbUser = "fcuser";
-    private static final String dbPassword = "fc123";
-
     public List<User> getUserList() {
         List<User> userList = new ArrayList<>();
         Connection conn = null;
@@ -19,7 +15,7 @@ public class UserDao {
         ResultSet rs = null;
 
         try {
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
+            conn = DBConfig.connect();
             String sql = "SELECT id, name, password FROM user ORDER BY id";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -47,7 +43,7 @@ public class UserDao {
         PreparedStatement ps = null;
         int count = 0;
         try{
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
+            conn = DBConfig.connect();
             String sql = "insert into user (id, name, password) VALUES (null, ?, ?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1, user.getName());
@@ -69,7 +65,7 @@ public class UserDao {
         ResultSet rs = null;
 
         try {
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
+            conn = DBConfig.connect();
             String sql = "SELECT * FROM user WHERE name = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);
