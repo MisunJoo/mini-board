@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDao {
-    private static final String dbUrl = "jdbc:mysql://localhost:3306/fcdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-    private static final String dbUser = "fcuser";
-    private static final String dbPassword = "fc123";
-
     public List<Article> getArticleList() {
         List<Article> articleList = new ArrayList<>();
         Connection conn = null;
@@ -21,7 +17,7 @@ public class ArticleDao {
         ResultSet rs = null;
 
         try {
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
+            conn = DBConfig.connect();
             String sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article ORDER BY id";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -61,7 +57,7 @@ public class ArticleDao {
         PreparedStatement ps = null;
 
         try {
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
+            conn = DBConfig.connect();
             String sql = "INSERT INTO article(id, user_id, country, category, title, content, reg_date) " +
                     "VALUES (null, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);
