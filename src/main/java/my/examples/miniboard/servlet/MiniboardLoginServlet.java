@@ -34,11 +34,11 @@ public class MiniboardLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // login 페이지에서 id와 password를 받아,
         // id가 null이거나, DB에서 id로 얻은 user의 password와 입력받은 password가 일치하지 않으면 다시 login 페이지로 redirect
-        String userName = req.getParameter("userName");
+        String name = req.getParameter("name");
         String password = req.getParameter("password");
         UserDao userDao = new UserDao();
-        User user = userDao.getUser(userName);
-        System.out.println("로그인시도 => userName: " + userName + ", password: " + password);
+        User user = userDao.getUser(name);
+        System.out.println("로그인시도 => name: " + name + ", password: " + password);
 
         // User 테이블에 해당 name을 갖는 user가 없는 경우
         if (user == null) {
@@ -55,7 +55,7 @@ public class MiniboardLoginServlet extends HttpServlet {
             }
             // 비밀번호 일치할 경우(login 성공), session에 user 정보 set하고 index로 redirect
             else {
-                System.out.println("getUser(userName)으로 가져온 user 객체의 userName: " + user.getUserName());
+                System.out.println("getUser(userName)으로 가져온 user 객체의 name: " + user.getName());
                 System.out.println("getUser(userName)으로 가져온 user 객체의 password: " + user.getPassword());
                 HttpSession httpSession = req.getSession();
                 httpSession.setAttribute("authUser", user);

@@ -41,7 +41,7 @@ public class MiniboardWriteServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("authUser");
 
-        String userName = user.getUserName();
+        String name = user.getName();
 
         Long userId = user.getId();
         String country = req.getParameter("country");
@@ -49,7 +49,7 @@ public class MiniboardWriteServlet extends HttpServlet {
         String title = req.getParameter("title");
         String content = req.getParameter("content");
 
-        System.out.print("작성자: " + userName + " / ");
+        System.out.print("작성자: " + name + " / ");
         System.out.print("제목: " + title + " / ");
         System.out.println("내용: " + content);
 

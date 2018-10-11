@@ -1,16 +1,16 @@
 package my.examples.miniboard.dto;
 
 public class User {
-    private long id; //**왜 long일까?
-    private String userName;
+    private long id;
+    private String name;
     private String password;
 
     public User() {
 
     }
 
-    public User(String userName, String password) {
-        this.userName = userName;
+    public User(String name, String password) {
+        this.name = name;
         this.password = password;
     }
 
@@ -22,12 +22,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

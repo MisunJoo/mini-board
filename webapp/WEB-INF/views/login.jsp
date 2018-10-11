@@ -6,7 +6,7 @@
 </head>
 <body>
     <form method="post" action="/miniboard/login">
-        아이디 : <input type="text" name="userName" required><br>
+        아이디 : <input type="text" name="name" required><br>
         암호 : <input type="password" name="password" required><br>
 
         <input type="submit" value="로그인">

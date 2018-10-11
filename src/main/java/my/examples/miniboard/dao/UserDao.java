@@ -20,7 +20,7 @@ public class UserDao {
 
         try {
             conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "SELECT id, user_name, password FROM user ORDER BY id";
+            String sql = "SELECT id, name, password FROM user ORDER BY id";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -28,7 +28,7 @@ public class UserDao {
             // DB에서 받은 값을 각 User 객체에 set하고 list에 add한다.
             while (rs.next()) {
                 User user = new User();
-                user.setUserName(rs.getString(2));
+                user.setName(rs.getString(2));
                 user.setPassword(rs.getString(3));
 
                 userList.add(user);
@@ -48,14 +48,11 @@ public class UserDao {
         int count = 0;
         try{
             conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "insert into user (id, user_name, password) VALUES (null, ?, ?)";
+            String sql = "insert into user (id, name, password) VALUES (null, ?, ?)";
             ps = conn.prepareStatement(sql);
-
-            ps.setString(1, user.getUserName());
+            ps.setString(1, user.getName());
             ps.setString(2, user.getPassword());
-
             count = ps.executeUpdate();
-
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {
@@ -65,7 +62,7 @@ public class UserDao {
         return count;
     }
 
-    public User getUser(String userName) {
+    public User getUser(String name) {
         User user = null;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -73,15 +70,15 @@ public class UserDao {
 
         try {
             conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "SELECT * FROM user WHERE user_name = ?";
+            String sql = "SELECT * FROM user WHERE name = ?";
             ps = conn.prepareStatement(sql);
-            ps.setString(1, userName);
+            ps.setString(1, name);
             rs = ps.executeQuery();
 
             if (rs.next()) {
                 user = new User();
                 user.setId(rs.getLong(1));
-                user.setUserName(rs.getString(2));
+                user.setName(rs.getString(2));
                 user.setPassword(rs.getString(3));
             }
         } catch (SQLException e) {
