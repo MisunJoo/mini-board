@@ -18,8 +18,18 @@ import java.io.IOException;
 public class MiniboardWriteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/write.jsp");
-        dispatcher.forward(req, resp);
+        HttpSession session = req.getSession();
+        User user = (User)session.getAttribute("authUser");
+
+        if (user != null) {
+            // 로그인 되어 있어야만 write 페이지로 이동(forwarding)
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/write.jsp");
+            dispatcher.forward(req, resp);
+        } else {
+            // 로그인 되어 있지 않으면, 로그인 페이지로 이동
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
+            dispatcher.forward(req, resp);
+        }
     }
 
     @Override
@@ -27,7 +37,6 @@ public class MiniboardWriteServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         // 이름과 내용을 읽어들인다
         HttpSession session = req.getSession();
-        // user를 못불러 오고 있다.
         User user = (User) session.getAttribute("authUser");
 
         String userName = user.getUserName();
@@ -37,7 +46,8 @@ public class MiniboardWriteServlet extends HttpServlet {
         String category = req.getParameter("category");
         String title = req.getParameter("title");
         String content = req.getParameter("content");
-        System.out.print("작성자: " + title + " / ");
+
+        System.out.print("작성자: " + userName + " / ");
         System.out.print("제목: " + title + " / ");
         System.out.println("내용: " + content);
 
@@ -45,7 +55,8 @@ public class MiniboardWriteServlet extends HttpServlet {
         // DB에 삽입한다
         ArticleDao articleDao = new ArticleDao();
         Article article = new Article(userId, country, category, title, content);
-        articleDao.addArticle(article);
+        int count = articleDao.addArticle(article);
+        System.out.println("현재 글 수: " + count);
 
         // /guestbook/list로 redirect
         resp.sendRedirect("/miniboard/list");

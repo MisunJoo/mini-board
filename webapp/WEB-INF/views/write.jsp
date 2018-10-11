@@ -7,7 +7,6 @@
     <form method="POST" action="/miniboard/write">
         <%-- userId는 sessionScope로 가져온다. --%>
         <%-- country, category, title, content --%>
-        ${sessionScope.authUser}
         <select name="country" required>
             <option value="" selected disabled hidden>음식 종류</option>
             <option value="korean">한식</option>

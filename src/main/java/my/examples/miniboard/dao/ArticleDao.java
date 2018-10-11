@@ -62,13 +62,15 @@ public class ArticleDao {
 
         try {
             conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "INSERT INTO article(id, user_id, country, category, title, content, reg_date) VALUES (null, ?, ?, ?, ?, ? now())";
+            String sql = "INSERT INTO article(id, user_id, country, category, title, content, reg_date) " +
+                    "VALUES (null, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, article.getUserId());
             ps.setString(2, article.getCountry());
             ps.setString(3, article.getCategory());
             ps.setString(4, article.getTitle());
             ps.setString(5, article.getContent());
+            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
