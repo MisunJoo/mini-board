@@ -1,12 +1,9 @@
 package my.examples.miniboard.dao;
 
 import my.examples.miniboard.config.DBConfig;
-import my.examples.miniboard.servlet.Article;
-import my.examples.miniboard.servlet.User;
+import my.examples.miniboard.dto.User;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 

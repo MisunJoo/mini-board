@@ -1,4 +1,4 @@
-package my.examples.miniboard.servlet;
+package my.examples.miniboard.dto;
 
 public class User {
     private long id; //**왜 long일까?

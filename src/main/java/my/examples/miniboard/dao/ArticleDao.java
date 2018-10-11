@@ -1,7 +1,7 @@
 package my.examples.miniboard.dao;
 
 import my.examples.miniboard.config.DBConfig;
-import my.examples.miniboard.servlet.Article;
+import my.examples.miniboard.dto.Article;
 
 import java.sql.*;
 import java.time.LocalDateTime;

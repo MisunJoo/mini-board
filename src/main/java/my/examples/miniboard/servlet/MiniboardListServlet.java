@@ -1,6 +1,7 @@
 package my.examples.miniboard.servlet;
 
 import my.examples.miniboard.dao.ArticleDao;
+import my.examples.miniboard.dto.Article;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

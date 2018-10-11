@@ -1,4 +1,4 @@
-package my.examples.miniboard.servlet;
+package my.examples.miniboard.dto;
 
 import java.time.LocalDateTime;
 
