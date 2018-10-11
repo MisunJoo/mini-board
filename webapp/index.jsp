@@ -7,9 +7,9 @@
 </head>
 <body>
 
-    <c:if test="${sessionScope.authUser == null}">
-        <a href="/miniboard/login"><button>Log In</button></a><br>
-    </c:if>
+    <%--<c:if test="${sessionScope.authUser == null}">--%>
+    <%--<a href="/miniboard/login"><button>Log In</button></a><br>--%>
+    <%--</c:if>--%>
     <c:if test="${sessionScope.authUser != null}">
         <a href="/miniboard/logout"><button>Log Out</button></a><br>
     </c:if>
