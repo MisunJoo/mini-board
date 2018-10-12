@@ -23,6 +23,9 @@ public class MiniboardListServlet extends HttpServlet {
         req.setAttribute("articleListSize", articles.size());
 
 
+
+
+
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/list.jsp");
         requestDispatcher.forward(req, resp);
     }
