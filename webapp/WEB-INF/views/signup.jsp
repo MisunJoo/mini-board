@@ -11,7 +11,7 @@
     <title>회원가입 페이지</title>
 </head>
 <body>
-<h1>Sign Up</h1>
+<h1>login</h1>
 
 <form method="post" action="/miniboard/signup">
     아이디 : <input type="text" name="name"><br>
