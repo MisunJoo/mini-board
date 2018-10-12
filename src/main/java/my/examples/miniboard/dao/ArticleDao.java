@@ -10,15 +10,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDao {
-    public List<Article> getArticleList() {
+    String country;
+    String category;
+
+    public ArticleDao(){
+    }
+
+
+//    public ArticleDao(String country, String category){
+//        this.country = country;
+//        this.category = category;
+//    }
+
+    public List<Article> getArticleList(String country, String category) {
         List<Article> articleList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
+        this.country = country;
+        this.category = category;
+
+
         try {
             conn = DBConfig.connect();
-            String sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article ORDER BY id";
+            String sql;
+
+            if (country == null || country.equals("korean")){
+                if (category == null || category.equals("홍보"))
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'promotion' ORDER BY id";
+                else
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'review' ORDER BY id";
+
+            } else if (country.equals("chinese")){
+                if (category == null || category.equals("홍보"))
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'promotion' ORDER BY id";
+                else
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'review' ORDER BY id";
+
+            } else if (country.equals("western")){
+                if (category == null || category.equals("홍보"))
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'promotion' ORDER BY id";
+                else
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'review' ORDER BY id";
+
+            } else {
+                if (category == null || category.equals("홍보"))
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'promotion' ORDER BY id";
+                else
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'review' ORDER BY id";
+
+            }
+
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 

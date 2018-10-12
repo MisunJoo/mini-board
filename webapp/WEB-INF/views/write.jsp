@@ -11,8 +11,8 @@
             <option value="" selected disabled hidden>음식 종류</option>
             <option value="korean">한식</option>
             <option value="chinese">중식</option>
-            <option value="korean">양식</option>
-            <option value="western">일식</option>
+            <option value="western">양식</option>
+            <option value="japanese">일식</option>
         </select>
         <select name="category" required>
             <option value="" selected disabled hidden>글 종류</option>
