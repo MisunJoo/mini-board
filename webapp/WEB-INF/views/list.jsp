@@ -6,14 +6,14 @@
 </head>
 <body>
 <select name="country" required>
-    <option value="" selected disabled hidden>음식 종류</option>
+    <!--<option value="" selected disabled hidden>음식 종류</option>-->
     <option value="korean">한식</option>
     <option value="chinese">중식</option>
     <option value="korean">양식</option>
     <option value="western">일식</option>
 </select>
 <select name="category" required>
-    <option value="" selected disabled hidden>글 종류</option>
+    <!--<option value="" selected disabled hidden>글 종류</option>-->
     <option value="promotion">홍보</option>
     <option value="review">후기</option>
 </select>
