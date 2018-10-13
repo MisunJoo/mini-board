@@ -29,6 +29,16 @@
 
 <a href="/miniboard/list?country=${country}"></a>
 <c:forEach items="${requestScope.articleList}" var="article">
+<<<<<<< HEAD
+    글종류 : ${article.category}<br>
+    글번호 : ${article.id}<br>
+    제목 : ${article.title} <br>
+    글쓴이 : ${article.userId} <br>
+    등록일 : ${article.reg} <br>
+||||||| merged common ancestors
+    이름 : ${article.title} <br>
+    내용 : ${article.content} <br>
+=======
 
     ${article.country} &nbsp;
     ${article.category} &nbsp;
@@ -37,6 +47,7 @@
     ${article.userId} &nbsp;
     ${article.regDate} &nbsp;
 
+>>>>>>> origin/develop
 </c:forEach>
 
 <br>

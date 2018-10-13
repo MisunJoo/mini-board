@@ -70,7 +70,6 @@ public class ArticleDao {
             while (rs.next()) {
                 Article article = new Article();
                 article.setId(rs.getLong(1));
-                article.setUserId(rs.getLong(2));
                 article.setCountry(rs.getString(3));
                 article.setCategory(rs.getString(4));
                 article.setTitle(rs.getString(5));
