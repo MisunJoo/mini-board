@@ -19,5 +19,7 @@
     <c:if test="${wrongPw == true}">
         <p style="color: red">비밀번호를 확인하세요.</p>
     </c:if>
+
+    <a href="/miniboard/signup"><button>회원 가입</button></a>
 </body>
 </html>
