@@ -19,18 +19,18 @@
         <option value="promotion">홍보</option>
         <option value="review">후기</option>
     </select>
-    글번호 제목 작성자 등록일<br>
+    글번호 제목 작성자 등록일<br><br>
 
     <!-- 게시글 목록을 출력한다. -->
     <a href="/miniboard/list?country=${country}"></a>
     <c:forEach items="${requestScope.articleList}" var="article">
         글종류 : ${article.category}<br>
         글번호 : ${article.id}<br>
-        제목 : ${article.title} <br>
-        글쓴이 : ${article.userId} <br>
-        등록일 : ${article.reg} <br>
+        분류 : ${article.country} <br>
+        글쓴이 : ${article.userName} <br>
+        등록일 : ${article.regDate} <br>
         이름 : ${article.title} <br>
-        내용 : ${article.content} <br>
+        내용 : ${article.content} <br><br>
     </c:forEach>
     <br>
 

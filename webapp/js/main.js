@@ -1,4 +1,4 @@
 document.getElementById('country').addEventListener('change', () => {
     let selectedValue = document.getElementById('country').value;
-    location.href = `/miniboard/${selectedValue}`;
+    location.href = `/miniboard/list/${selectedValue}`;
 });

@@ -16,24 +16,23 @@ import java.util.List;
 
 @WebServlet("/miniboard/list")
 public class MiniboardListServlet extends HttpServlet {
-
+// ListServlet에서는 전체 글을 다 보여준다.
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArticleDao articleDao = new ArticleDao();
 
-        String country = req.getParameter("country");
-        String category = req.getParameter("category");
+//        String country = req.getParameter("country");
+//        String category = req.getParameter("category");
 
         //select로부터 읽어오는 것을 못함 ㅠㅠㅠㅠㅠㅠㅠㅠ
-        System.out.println("나라선택" + country);
+//        System.out.println("나라선택" + country);
 
-        List<Article> articles = articleDao.getArticleList(country, category);
+        List<Article> allArticles = articleDao.getAllArticleList();
 
-
-        req.setAttribute("articleList", articles);
-        req.setAttribute("articleListSize", articles.size());
-
-        req.setAttribute("country",country);
+//        List<Article> articles = articleDao.getArticleList(country, category);
+        req.setAttribute("articleList", allArticles);
+        req.setAttribute("articleListSize", allArticles.size());
+//        req.setAttribute("country", country);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/list.jsp");
         requestDispatcher.forward(req, resp);
