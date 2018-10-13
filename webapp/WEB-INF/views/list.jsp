@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form method="get" action="/miniboard/list">
+<%--<form method="get" action="/miniboard/list">--%>
     <select id="country" name="country">
         <option value="" selected disabled hidden>음식 종류</option>
         <option value="korean">한식</option>
@@ -20,7 +20,7 @@
         <option value="promotion">홍보</option>
         <option value="review">후기</option>
     </select>
-</form>
+<%--</form>--%>
 글번호 제목 작성자 등록일
 <br>
 
@@ -51,7 +51,7 @@
 </c:forEach>
 
 <br>
-게시글 수 : ${requestScope.articleListSize}<br
-
+게시글 수 : ${requestScope.articleListSize}<br>
+    <script src="/js/main.js"></script>
 </body>
 </html>
