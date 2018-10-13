@@ -23,6 +23,7 @@
 <%--</form>--%>
 글번호 제목 작성자 등록일
 <br>
+<a href="/miniboard/write"><button>글쓰기</button></a>
 
 
 <!-- 게시글 목록을 출력한다. -->
