@@ -19,28 +19,9 @@
         </c:if>
     </div>
 
-    <%--<c:if test="${sessionScope.authUser != null}">--%>
-        <%--<a href="/miniboard/logout"><button>Log Out</button></a><br>--%>
-    <%--</c:if>--%>
-
-    <%--Main Page 입니다.--%>
-    <%--성수 맛집 아카이브<br>--%>
-
-    <%--<c:if test="${sessionScope.authUser == null}">--%>
-        <%--<a href="/miniboard/signup"><button>Sign Up</button></a>--%>
-        <%--<a href="/miniboard/login"><button>Log In</button></a>--%>
-    <%--</c:if>--%>
-
-    <%--<c:if test="${sessionScope.authUser != null}">--%>
-        <%--<a href="/miniboard/list"><button>한식</button></a>--%>
-        <%--<a href="/miniboard/list"><button>중식</button></a>--%>
-        <%--<a href="/miniboard/list"><button>양식</button></a>--%>
-        <%--<a href="/miniboard/list"><button>일식</button></a>--%>
-    <%--</c:if>--%>
-
-    <%-- 로그인 되어 있지 않으면 회원가입 페이지로 이동 --%>
+    <%-- 로그인 되어 있지 않으면 로그인 페이지로 이동 --%>
     <c:if test="${sessionScope.authUser == null}">
-        <a href="/miniboard/signup" class="enter"><p>웰컴 투 성수</p></a>
+        <a href="/miniboard/login" class="enter"><p>웰컴 투 성수</p></a>
     </c:if>
     <%-- 로그인 되어 있으면 리스트로 이동 --%>
     <c:if test="${sessionScope.authUser != null}">
