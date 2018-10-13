@@ -1,7 +1,7 @@
 package my.examples.miniboard.dao;
 
 import my.examples.miniboard.config.DBConfig;
-import my.examples.miniboard.servlet.Article;
+import my.examples.miniboard.dto.Article;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -10,19 +10,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDao {
-    private static final String dbUrl = "jdbc:mysql://localhost:3306/fcdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-    private static final String dbUser = "fcuser";
-    private static final String dbPassword = "fc123";
+    String country;
+    String category;
 
-    public List<Article> getArticleList() {
+    public ArticleDao(){
+    }
+
+
+//    public ArticleDao(String country, String category){
+//        this.country = country;
+//        this.category = category;
+//    }
+
+    public List<Article> getArticleList(String country, String category) {
         List<Article> articleList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
+        this.country = country;
+        this.category = category;
+
+
         try {
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article ORDER BY id";
+            conn = DBConfig.connect();
+            String sql;
+
+            if (country == null || country.equals("korean")){
+                if (category == null || category.equals("홍보"))
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'promotion' ORDER BY id";
+                else
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'review' ORDER BY id";
+
+            } else if (country.equals("chinese")){
+                if (category == null || category.equals("홍보"))
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'promotion' ORDER BY id";
+                else
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'review' ORDER BY id";
+
+            } else if (country.equals("western")){
+                if (category == null || category.equals("홍보"))
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'promotion' ORDER BY id";
+                else
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'review' ORDER BY id";
+
+            } else {
+                if (category == null || category.equals("홍보"))
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'promotion' ORDER BY id";
+                else
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'review' ORDER BY id";
+
+            }
+
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -60,14 +99,16 @@ public class ArticleDao {
         PreparedStatement ps = null;
 
         try {
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "INSERT INTO article(id, user_id, country, category, title, content, reg_date) VALUES (null, ?, ?, ?, ?, ? now())";
+            conn = DBConfig.connect();
+            String sql = "INSERT INTO article(id, user_id, country, category, title, content, reg_date) " +
+                    "VALUES (null, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, article.getUserId());
             ps.setString(2, article.getCountry());
             ps.setString(3, article.getCategory());
             ps.setString(4, article.getTitle());
             ps.setString(5, article.getContent());
+            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

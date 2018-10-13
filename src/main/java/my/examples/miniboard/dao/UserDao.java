@@ -1,20 +1,13 @@
 package my.examples.miniboard.dao;
 
 import my.examples.miniboard.config.DBConfig;
-import my.examples.miniboard.servlet.Article;
-import my.examples.miniboard.servlet.User;
+import my.examples.miniboard.dto.User;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private static final String dbUrl = "jdbc:mysql://localhost:3306/fcdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-    private static final String dbUser = "fcuser";
-    private static final String dbPassword = "fc123";
-
     public List<User> getUserList() {
         List<User> userList = new ArrayList<>();
         Connection conn = null;
@@ -22,8 +15,8 @@ public class UserDao {
         ResultSet rs = null;
 
         try {
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "SELECT id, user_name, password FROM user ORDER BY id";
+            conn = DBConfig.connect();
+            String sql = "SELECT id, name, password FROM user ORDER BY id";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -31,7 +24,7 @@ public class UserDao {
             // DB에서 받은 값을 각 User 객체에 set하고 list에 add한다.
             while (rs.next()) {
                 User user = new User();
-                user.setUserName(rs.getString(2));
+                user.setName(rs.getString(2));
                 user.setPassword(rs.getString(3));
 
                 userList.add(user);
@@ -50,16 +43,12 @@ public class UserDao {
         PreparedStatement ps = null;
         int count = 0;
         try{
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "insert into user (id, user_name, password) VALUES (null, ?, ?)";
+            conn = DBConfig.connect();
+            String sql = "insert into user (id, name, password) VALUES (null, ?, ?)";
             ps = conn.prepareStatement(sql);
-
-            ps.setString(1, user.getUserName());
+            ps.setString(1, user.getName());
             ps.setString(2, user.getPassword());
-
             count = ps.executeUpdate();
-
-
         }catch(Exception ex){
             ex.printStackTrace();
         }finally {
@@ -69,22 +58,24 @@ public class UserDao {
         return count;
     }
 
-    public User getUser(String userName) {
+    public User getUser(String name) {
         User user = null;
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
-            conn = DBConfig.connect(dbUrl, dbUser, dbPassword);
-            String sql = "SELECT * FROM user WHERE user_name = ?";
+            conn = DBConfig.connect();
+            String sql = "SELECT * FROM user WHERE name = ?";
             ps = conn.prepareStatement(sql);
-            ps.setString(1, userName);
+            ps.setString(1, name);
             rs = ps.executeQuery();
 
             if (rs.next()) {
                 user = new User();
-                user.setUserName(rs.getString(1));
+                user.setId(rs.getLong(1));
+                user.setName(rs.getString(2));
+                user.setPassword(rs.getString(3));
             }
         } catch (SQLException e) {
             e.printStackTrace();

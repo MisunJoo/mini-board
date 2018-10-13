@@ -11,10 +11,10 @@
     <title>회원가입 페이지</title>
 </head>
 <body>
-<h1>login</h1>
+<h1>Sign Up</h1>
 
 <form method="post" action="/miniboard/signup">
-    아이디 : <input type="text" name="userName"><br>
+    아이디 : <input type="text" name="name"><br>
     암호 : <input type="text" name="password"><br>
 
     <input type="submit">
