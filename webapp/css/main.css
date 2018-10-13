@@ -1,0 +1,67 @@
+body, html {
+    height: 100%;
+}
+
+.bg {
+    background-image: url("../img/gf-steak-salad.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+}
+
+.top-header {
+    border-bottom: 0.2px white solid;
+    width: 75%;
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.top-header p {
+    margin: 15px 0;
+    color: white;
+    font-weight: bold;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.enter {
+    position:absolute;
+    width: 22%;
+    height: 14%;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.2em white solid;
+    text-align: center;
+    text-decoration: none;
+}
+
+.enter:hover {
+    background-color: rgba(68, 67, 67, 0.5);
+}
+
+.enter p {
+    font-size: 45px;
+    color: white;
+    line-height: 16px;
+    font-weight: 500;
+    /* font-family: 'Song Myung', serif; */
+    font-family: 'Yeon Sung', cursive;
+}
+
+.github-link {
+    position:absolute;
+    font-size: 34px;
+    color: white;
+    top: 92%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    text-decoration: none;
+}
+
+.github-link:hover {
+    color: #dbdbdbb4;
+}
