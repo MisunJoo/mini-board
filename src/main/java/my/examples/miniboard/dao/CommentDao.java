@@ -73,6 +73,7 @@ public class CommentDao {
         return count;
     }
 
+
     public boolean deleteComment(Long commentId){
         boolean result = false;
         Connection conn = null;
@@ -101,6 +102,5 @@ public class CommentDao {
 
         return result;
     }
-
 
 }

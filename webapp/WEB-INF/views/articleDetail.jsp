@@ -31,11 +31,20 @@
             <%-- 댓글 목록 --%>
             <c:forEach items="${requestScope.commentList}" var="comment">
                 <div class="comment">
+                    댓글 id: ${comment.id}
+                    article_id: ${comment.articleId}
                     <p>${comment.userId} (${comment.regDate})</p>
                     <p>${comment.content}</p>
                 </div>
                 <%--댓글 id: ${comment.id}--%>
                 <%--article_id: ${comment.articleId}--%>
+                <%--자신이 입력한 댓글일 경우 삭제버튼 보임 --%>
+                <c:if test="${comment.userId == sessionScope.authUser.id}">
+                    <a href="/miniboard/delete?articleId=${requestScope.article.id}&commentId=${comment.id}"><button>삭제</button></a>
+                </c:if>
+
+                <br>
+
             </c:forEach>
 
             <%-- 댓글 입력창 --%>
