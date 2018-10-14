@@ -9,6 +9,7 @@ public class Article {
     private String category;
     private String title;
     private String content;
+    private String userName;
     private LocalDateTime regDate;
 
     public Article() {
@@ -79,4 +80,8 @@ public class Article {
     public void setRegDate(LocalDateTime regDate) {
         this.regDate = regDate;
     }
+
+    public String getUserName() { return userName; }
+
+    public void setUserName(String userName) { this.userName = userName; }
 }
