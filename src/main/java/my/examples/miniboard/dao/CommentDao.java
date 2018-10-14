@@ -72,4 +72,35 @@ public class CommentDao {
 
         return count;
     }
+
+    public boolean deleteComment(Long commentId){
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try{
+            conn = DBConfig.connect();
+            String sql = "DELETE FROM comment WHERE id = ? ";
+            ps = conn.prepareStatement(sql);
+
+            ps.setLong(1, commentId);
+
+            int a = ps.executeUpdate();
+
+            if(a > 0) result = true;
+            else result = false;
+
+
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            DBConfig.close(conn, ps);
+        }
+
+
+        return result;
+    }
+
+
 }
