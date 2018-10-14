@@ -40,9 +40,9 @@ public class MiniboardWriteServlet extends HttpServlet {
         // 이름과 내용을 읽어들인다
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("authUser");
+        String userName = user.getName();
 
         Long userId = user.getId();
-        String userName = user.getName();
         String country = req.getParameter("country");
         String category = req.getParameter("category");
         String title = req.getParameter("title");
@@ -55,7 +55,7 @@ public class MiniboardWriteServlet extends HttpServlet {
         // 이름과 내용을 검사한다
         // DB에 삽입한다
         ArticleDao articleDao = new ArticleDao();
-        Article article = new Article(userId, userName, country, category, title, content);
+        Article article = new Article(userId, country, category, title, content);
         int count = articleDao.addArticle(article);
         System.out.println("현재 글 수: " + count);
 

@@ -32,12 +32,11 @@ public class ArticleDao {
                 Article article = new Article();
                 article.setId(rs.getLong(1));
                 article.setUserId(rs.getLong(2));
-                article.setUserName(rs.getString(3));
-                article.setCountry(rs.getString(4));
-                article.setCategory(rs.getString(5));
-                article.setTitle(rs.getString(6));
-                article.setContent(rs.getString(7));
-                Date sqlDate = rs.getDate(8);
+                article.setCountry(rs.getString(3));
+                article.setCategory(rs.getString(4));
+                article.setTitle(rs.getString(5));
+                article.setContent(rs.getString(6));
+                Date sqlDate = rs.getDate(7);
                 java.util.Date date = new java.util.Date(sqlDate.getTime());
                 LocalDateTime ldt = date.toInstant()
                         .atZone(ZoneId.systemDefault())
@@ -141,15 +140,14 @@ public class ArticleDao {
         try {
             conn = DBConfig.connect();
             String sql = "INSERT INTO article(id, user_id, user_name, country, category, title, content, reg_date) " +
-                    "VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (null, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, article.getUserId());
-            ps.setString(2, article.getUserName());
-            ps.setString(3, article.getCountry());
-            ps.setString(4, article.getCategory());
-            ps.setString(5, article.getTitle());
-            ps.setString(6, article.getContent());
-            ps.setTimestamp(7, java.sql.Timestamp.valueOf(article.getRegDate()));
+            ps.setString(2, article.getCountry());
+            ps.setString(3, article.getCategory());
+            ps.setString(4, article.getTitle());
+            ps.setString(5, article.getContent());
+            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -158,6 +156,44 @@ public class ArticleDao {
         }
 
         return count;
+    }
+
+    public Article getArticle(Long articleId) {
+        Article article = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBConfig.connect();
+            String sql = "SELECT * FROM article WHERE id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setLong(1, articleId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                article = new Article();
+                article.setId(rs.getLong(1));
+                article.setUserId(rs.getLong(2));
+                article.setCountry(rs.getString(3));
+                article.setCategory(rs.getString(4));
+                article.setTitle(rs.getString(5));
+                article.setContent(rs.getString(6));
+                Date sqlDate = rs.getDate(7);
+                java.util.Date date = new java.util.Date(sqlDate.getTime());
+                LocalDateTime ldt = date.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDateTime();
+                article.setRegDate(ldt);
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            DBConfig.close(conn, ps, rs);
+        }
+
+        return article;
     }
 
 //    public int deleteArticle(Long id) {
