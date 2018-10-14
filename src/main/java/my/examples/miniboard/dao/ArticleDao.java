@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDao {
-    String country;
-    String category;
+//    String country;
+//    String category;
 
     public ArticleDao(){
     }
@@ -60,8 +60,8 @@ public class ArticleDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        this.country = country;
-        this.category = category;
+//        this.country = country;
+//        this.category = category;
 
 
         try {
@@ -140,14 +140,14 @@ public class ArticleDao {
         try {
             conn = DBConfig.connect();
             String sql = "INSERT INTO article(id, user_id, user_name, country, category, title, content, reg_date) " +
-                    "VALUES (null, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (null, ?, ?, ?, ?, ?, now())";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, article.getUserId());
             ps.setString(2, article.getCountry());
             ps.setString(3, article.getCategory());
             ps.setString(4, article.getTitle());
             ps.setString(5, article.getContent());
-            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
+//            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
