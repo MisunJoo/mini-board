@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDao {
+
     String country;
     String category;
     private static int noOfRecords;
+
 
     public ArticleDao(){
     }
@@ -62,8 +64,8 @@ public class ArticleDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        this.country = country;
-        this.category = category;
+//        this.country = country;
+//        this.category = category;
 
 
         try {
@@ -162,6 +164,14 @@ public class ArticleDao {
             ps.setString(5, article.getTitle());
             ps.setString(6, article.getContent());
             ps.setTimestamp(7, java.sql.Timestamp.valueOf(article.getRegDate()));
+            ps = conn.prepareStatement(sql);
+            ps.setLong(1, article.getUserId());
+            ps.setString(2, article.getCountry());
+            ps.setString(3, article.getCategory());
+            ps.setString(4, article.getTitle());
+            ps.setString(5, article.getContent());
+//            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
+
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

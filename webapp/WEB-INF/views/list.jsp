@@ -29,7 +29,7 @@
 
     <!-- 게시글 목록을 출력한다. -->
 
-    <c:forEach items="${requestScope.articleList}" var="article">
+    <c:forEach items="${articleList}" var="article">
 
         분류 : ${article.country}
         글종류 : ${article.category}

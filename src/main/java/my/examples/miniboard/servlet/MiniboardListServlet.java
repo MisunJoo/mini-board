@@ -21,8 +21,7 @@ public class MiniboardListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         int page = 1;
-        int recordsPerPage = 5;
-        ArticleDao articleDao = new ArticleDao();
+        int recordsPerPage = 3;
 
         String country = req.getParameter("country");
         String category = req.getParameter("category");
@@ -31,6 +30,7 @@ public class MiniboardListServlet extends HttpServlet {
             page = Integer.parseInt(req.getParameter("page"));
         }
 
+        ArticleDao articleDao = new ArticleDao();
 
         List<Article> articles = articleDao.getArticleList(country, category, (page-1)*recordsPerPage,
                 recordsPerPage);
