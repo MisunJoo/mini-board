@@ -20,28 +20,29 @@
         <option value="promotion">홍보</option>
         <option value="review">후기</option>
     </select>
+
         <input type="submit" value="선택조건으로 검색"/>
     </form>
     <br>
 
-    글번호 제목 작성자 등록일<br>
+    분류 글종류 글번호 작성자 제목 등록일<br>
 
     <!-- 게시글 목록을 출력한다. -->
-    <a href="/miniboard/list?country=${country}"></a>
+
     <c:forEach items="${requestScope.articleList}" var="article">
-        음식종류 :${article.country}
+
+        분류 : ${article.country}
         글종류 : ${article.category}
         글번호 : ${article.id}
-        제목 : ${article.title}
-        글쓴이 : ${article.userId}
-        등록일 : ${article.regDate}
-        이름 : ${article.title} <br>
+        글쓴이 : ${article.userName}
+        이름 : ${article.title}
+        등록일 : ${article.regDate} <br><br>
+
     </c:forEach>
     <br>
 
     게시글 수 : ${requestScope.articleListSize}<br>
     <a href="/miniboard/write"><button>글쓰기</button></a>
 
-   <!-- <script src="/js/main.js"></script> -->
 </body>
 </html>

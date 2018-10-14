@@ -16,51 +16,28 @@ import java.util.List;
 
 @WebServlet("/miniboard/list")
 public class MiniboardListServlet extends HttpServlet {
-
+// ListServlet에서는 전체 글을 다 보여준다.
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArticleDao articleDao = new ArticleDao();
 
         String country = req.getParameter("country");
         String category = req.getParameter("category");
-
-
         System.out.println("나라선택" + country);
 
+//        List<Article> articles = articleDao.getArticleList(country, category);
+        
+        System.out.println("나라선택" + country);
+
+
+//        List<Article> allArticles = articleDao.getAllArticleList();
+
         List<Article> articles = articleDao.getArticleList(country, category);
-
-
         req.setAttribute("articleList", articles);
         req.setAttribute("articleListSize", articles.size());
-
-        req.setAttribute("country",country);
+//        req.setAttribute("country", country);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/list.jsp");
         requestDispatcher.forward(req, resp);
     }
-
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.setCharacterEncoding("UTF-8");
-//
-//        HttpSession session = req.getSession();
-//        User user = (User) session.getAttribute("authUser");
-//
-//        country = req.getParameter("country");
-//        category = req.getParameter("category");
-//
-//        System.out.println("나라선택" + country);
-//
-////        ArticleDao articleDao = new ArticleDao(country, category);
-//
-//        ArticleDao articleDao = new ArticleDao();
-//
-//
-//        //국가에 따른 리스틀 불러옴
-//        List<Article> list = articleDao.getArticleList();
-//        req.setAttribute("article", list);
-//
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/list.jsp");
-//        requestDispatcher.forward(req, resp);
-//    }
 }

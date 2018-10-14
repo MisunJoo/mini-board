@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class Article {
     private Long id;
     private Long userId;
+    private String userName;
     private String country;
     private String category;
     private String title;
@@ -15,9 +16,10 @@ public class Article {
         this.regDate = LocalDateTime.now();
     }
 
-    public Article(Long userId, String country, String category, String title, String content) {
+    public Article(Long userId, String userName, String country, String category, String title, String content) {
         this();
         this.userId = userId;
+        this.userName = userName;
         this.country = country;
         this.category = category;
         this.title = title;
@@ -38,6 +40,14 @@ public class Article {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getCountry() {
