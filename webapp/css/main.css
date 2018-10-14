@@ -154,3 +154,11 @@ body, html {
 .article-content {
     font-family: 'Noto Serif KR', sans-serif;
 }
+
+.login-form {
+    margin-top: 180px;
+}
+
+.login-form input {
+    height: 30px;
+}
