@@ -140,3 +140,11 @@ body, html {
     padding-top: 50px;
     padding-left: 300px;
 }
+
+.login-form {
+    margin-top: 180px;
+}
+
+.login-form input {
+    height: 30px;
+}
