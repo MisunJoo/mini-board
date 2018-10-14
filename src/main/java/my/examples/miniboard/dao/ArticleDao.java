@@ -12,6 +12,7 @@ import java.util.List;
 public class ArticleDao {
     String country;
     String category;
+    private static int noOfRecords;
 
     public ArticleDao(){
     }
@@ -55,7 +56,7 @@ public class ArticleDao {
         return articleList;
     }
 
-    public List<Article> getArticleList(String country, String category) {
+    public List<Article> getArticleList(String country, String category, int offset, int noOfRecords) {
         List<Article> articleList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -105,6 +106,7 @@ public class ArticleDao {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
+
             // rs(결과값)가 없을 때까지 반복
             // DB에서 받은 값을 각 Article 객체에 set하고 list에 add한다.
             while (rs.next()) {
@@ -124,6 +126,16 @@ public class ArticleDao {
 
                 articleList.add(article);
             }
+
+            rs.close();
+
+            rs = ps.executeQuery("SELECT FOUND_ROWS()");
+            if(rs.next()){
+                this.noOfRecords = rs.getInt(1);
+            }
+
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -158,6 +170,11 @@ public class ArticleDao {
         }
 
         return count;
+    }
+
+
+    public static int getNoOfRecords() {
+        return noOfRecords;
     }
 
 //    public int deleteArticle(Long id) {
