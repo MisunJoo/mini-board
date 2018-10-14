@@ -16,11 +16,44 @@ public class ArticleDao {
     public ArticleDao(){
     }
 
+    public List<Article> getAllArticleList() {
+        List<Article> articleList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-//    public ArticleDao(String country, String category){
-//        this.country = country;
-//        this.category = category;
-//    }
+        try {
+            conn = DBConfig.connect();
+            String sql = "SELECT * FROM article";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Article article = new Article();
+                article.setId(rs.getLong(1));
+                article.setUserId(rs.getLong(2));
+                article.setUserName(rs.getString(3));
+                article.setCountry(rs.getString(4));
+                article.setCategory(rs.getString(5));
+                article.setTitle(rs.getString(6));
+                article.setContent(rs.getString(7));
+                Date sqlDate = rs.getDate(8);
+                java.util.Date date = new java.util.Date(sqlDate.getTime());
+                LocalDateTime ldt = date.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDateTime();
+                article.setRegDate(ldt);
+
+                articleList.add(article);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            DBConfig.close(conn, ps, rs);
+        }
+
+        return articleList;
+    }
 
     public List<Article> getArticleList(String country, String category) {
         List<Article> articleList = new ArrayList<>();
@@ -36,26 +69,33 @@ public class ArticleDao {
             conn = DBConfig.connect();
             String sql;
 
-            if (country == null || country.equals("korean")){
-                if (category == null || category.equals("홍보"))
+            if (country == null){
+                sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article  ORDER BY id";
+
+            } else if (country.equals("korean")){
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' ORDER BY id";
+                else if (category.equals("promotion"))
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'promotion' ORDER BY id";
                 else
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'review' ORDER BY id";
 
             } else if (country.equals("chinese")){
-                if (category == null || category.equals("홍보"))
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinenes' ORDER BY id";
+                else if (category.equals("promotion"))
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'promotion' ORDER BY id";
                 else
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'review' ORDER BY id";
 
             } else if (country.equals("western")){
-                if (category == null || category.equals("홍보"))
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western'ORDER BY id";
+                else if (category.equals("promotion"))
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'promotion' ORDER BY id";
                 else
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'review' ORDER BY id";
 
             } else {
-                if (category == null || category.equals("홍보"))
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' ORDER BY id";
+                else if (category.equals("promotion"))
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'promotion' ORDER BY id";
                 else
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'review' ORDER BY id";
@@ -100,15 +140,16 @@ public class ArticleDao {
 
         try {
             conn = DBConfig.connect();
-            String sql = "INSERT INTO article(id, user_id, country, category, title, content, reg_date) " +
-                    "VALUES (null, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO article(id, user_id, user_name, country, category, title, content, reg_date) " +
+                    "VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, article.getUserId());
-            ps.setString(2, article.getCountry());
-            ps.setString(3, article.getCategory());
-            ps.setString(4, article.getTitle());
-            ps.setString(5, article.getContent());
-            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
+            ps.setString(2, article.getUserName());
+            ps.setString(3, article.getCountry());
+            ps.setString(4, article.getCategory());
+            ps.setString(5, article.getTitle());
+            ps.setString(6, article.getContent());
+            ps.setTimestamp(7, java.sql.Timestamp.valueOf(article.getRegDate()));
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
