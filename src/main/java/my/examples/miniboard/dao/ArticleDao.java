@@ -36,26 +36,33 @@ public class ArticleDao {
             conn = DBConfig.connect();
             String sql;
 
-            if (country == null || country.equals("korean")){
-                if (category == null || category.equals("홍보"))
+            if (country == null){
+                sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article  ORDER BY id";
+
+            } else if (country.equals("korean")){
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' ORDER BY id";
+                else if (category.equals("promotion"))
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'promotion' ORDER BY id";
                 else
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'review' ORDER BY id";
 
             } else if (country.equals("chinese")){
-                if (category == null || category.equals("홍보"))
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinenes' ORDER BY id";
+                else if (category.equals("promotion"))
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'promotion' ORDER BY id";
                 else
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'review' ORDER BY id";
 
             } else if (country.equals("western")){
-                if (category == null || category.equals("홍보"))
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western'ORDER BY id";
+                else if (category.equals("promotion"))
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'promotion' ORDER BY id";
                 else
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'review' ORDER BY id";
 
             } else {
-                if (category == null || category.equals("홍보"))
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' ORDER BY id";
+                else if (category.equals("promotion"))
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'promotion' ORDER BY id";
                 else
                     sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'review' ORDER BY id";

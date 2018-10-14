@@ -24,7 +24,7 @@ public class MiniboardListServlet extends HttpServlet {
         String country = req.getParameter("country");
         String category = req.getParameter("category");
 
-        //select로부터 읽어오는 것을 못함 ㅠㅠㅠㅠㅠㅠㅠㅠ
+
         System.out.println("나라선택" + country);
 
         List<Article> articles = articleDao.getArticleList(country, category);
