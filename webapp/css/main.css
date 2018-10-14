@@ -140,3 +140,17 @@ body, html {
     padding-top: 50px;
     padding-left: 300px;
 }
+
+.detail-body {
+    padding-top: 50px;
+    padding-left: 300px;
+    padding-bottom: 100px;
+}
+
+.article-title {
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.article-content {
+    font-family: 'Noto Serif KR', sans-serif;
+}
