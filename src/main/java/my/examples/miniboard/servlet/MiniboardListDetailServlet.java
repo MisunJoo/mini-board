@@ -17,6 +17,7 @@ public class MiniboardListDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long articleId = Long.parseLong(req.getParameter("id"));
         ArticleDao articleDao = new ArticleDao();
+        //Article article = articleDao.getArticle(articleId);
         Article article = articleDao.getArticle(articleId);
         req.setAttribute("article", article);
 

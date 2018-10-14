@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <form>
+    <form method="get" action="/miniboard/list">
     <select id="country" name="country">
         <option value="" selected disabled>음식 종류</option>
         <option value="korean">한식</option>
@@ -40,6 +40,30 @@
 
     </c:forEach>
     <br>
+
+
+    <c:if test="${currentPage != 1}">
+        <td><a href="/miniboard/list?page=${currentPage - 1}">Previous</a></td>
+    </c:if>
+
+    <table border="1" cellpadding="5" cellspacing="5">
+        <tr>
+            <c:forEach begin="1" end="${noOfPages}" var="i">
+                <c:choose>
+                    <c:when test="${currentPage eq i}">
+                        <td>${i}</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td><a href="/miniboard/list?page=${i}">${i}</a></td>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </tr>
+    </table>
+
+    <c:if test="${currentPage lt noOfPages}">
+        <td><a href="/miniboard/list?page=${currentPage + 1}">Next</a></td>
+    </c:if>
 
     게시글 수 : ${requestScope.articleListSize}<br>
     <a href="/miniboard/write"><button>글쓰기</button></a>

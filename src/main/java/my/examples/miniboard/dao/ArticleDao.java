@@ -12,6 +12,7 @@ import java.util.List;
 public class ArticleDao {
     String country;
     String category;
+    private static int noOfRecords;
 
     public ArticleDao(){
     }
@@ -32,11 +33,12 @@ public class ArticleDao {
                 Article article = new Article();
                 article.setId(rs.getLong(1));
                 article.setUserId(rs.getLong(2));
-                article.setCountry(rs.getString(3));
-                article.setCategory(rs.getString(4));
-                article.setTitle(rs.getString(5));
-                article.setContent(rs.getString(6));
-                Date sqlDate = rs.getDate(7);
+                article.setUserName(rs.getString(3));
+                article.setCountry(rs.getString(4));
+                article.setCategory(rs.getString(5));
+                article.setTitle(rs.getString(6));
+                article.setContent(rs.getString(7));
+                Date sqlDate = rs.getDate(8);
                 java.util.Date date = new java.util.Date(sqlDate.getTime());
                 LocalDateTime ldt = date.toInstant()
                         .atZone(ZoneId.systemDefault())
@@ -54,7 +56,7 @@ public class ArticleDao {
         return articleList;
     }
 
-    public List<Article> getArticleList(String country, String category) {
+    public List<Article> getArticleList(String country, String category, int offset, int noOfRecords) {
         List<Article> articleList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -104,6 +106,7 @@ public class ArticleDao {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
+
             // rs(결과값)가 없을 때까지 반복
             // DB에서 받은 값을 각 Article 객체에 set하고 list에 add한다.
             while (rs.next()) {
@@ -123,6 +126,16 @@ public class ArticleDao {
 
                 articleList.add(article);
             }
+
+            rs.close();
+
+            rs = ps.executeQuery("SELECT FOUND_ROWS()");
+            if(rs.next()){
+                this.noOfRecords = rs.getInt(1);
+            }
+
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -140,14 +153,15 @@ public class ArticleDao {
         try {
             conn = DBConfig.connect();
             String sql = "INSERT INTO article(id, user_id, user_name, country, category, title, content, reg_date) " +
-                    "VALUES (null, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, article.getUserId());
-            ps.setString(2, article.getCountry());
-            ps.setString(3, article.getCategory());
-            ps.setString(4, article.getTitle());
-            ps.setString(5, article.getContent());
-            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
+            ps.setString(2, article.getUserName());
+            ps.setString(3, article.getCountry());
+            ps.setString(4, article.getCategory());
+            ps.setString(5, article.getTitle());
+            ps.setString(6, article.getContent());
+            ps.setTimestamp(7, java.sql.Timestamp.valueOf(article.getRegDate()));
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -157,6 +171,12 @@ public class ArticleDao {
 
         return count;
     }
+
+
+    public static int getNoOfRecords() {
+        return noOfRecords;
+    }
+
 
     public Article getArticle(Long articleId) {
         Article article = null;
