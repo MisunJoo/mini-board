@@ -18,7 +18,15 @@
         article_id: ${comment.articleId}
         user_id: ${comment.userId}
         댓글 내용: ${comment.content}
-        등록일: ${comment.regDate}<br>
+        등록일: ${comment.regDate}
+
+        <%--자신이 입력한 댓글일 경우 삭제버튼 보임 --%>
+        <c:if test="${comment.userId == sessionScope.authUser.id}">
+            <a href="/miniboard/delete?articleId=${requestScope.article.id}&commentId=${comment.id}"><button>삭제</button></a>
+        </c:if>
+
+        <br>
+
     </c:forEach>
 
     <%-- 댓글 입력창 --%>
@@ -31,6 +39,7 @@
             <div><input type="submit" value="댓글 등록"/></div>
         </form>
     </c:if>
+
 
     <a href="/miniboard/list"><button>목록</button></a>
 </body>
