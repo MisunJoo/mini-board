@@ -17,7 +17,7 @@ import java.io.IOException;
  * 글 작성 페이지에서 POST 방식으로 form 전송 시, 요청 처리하는 메소드
  */
 @WebServlet("/miniboard/write")
-public class MiniboardWriteServlet extends HttpServlet {
+public class WriteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();

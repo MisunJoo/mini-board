@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/miniboard/signup")
-public class MiniboardSignupServlet extends HttpServlet {
+public class SignupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/signup.jsp");

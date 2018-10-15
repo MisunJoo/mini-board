@@ -54,7 +54,7 @@
                     <td>${article.id}</td>
                     <td>
                         <span>[${article.country}] [${article.category}] </span>
-                        <a href="/miniboard/list/detail?id=${article.id}">${article.title}</a>
+                        <a href="/miniboard/detail?id=${article.id}">${article.title}</a>
                     </td>
                     <td>${article.userId}</td>
                     <td>${article.regDate}</td>

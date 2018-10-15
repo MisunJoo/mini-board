@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/miniboard/list/detail")
-public class MiniboardListDetailServlet extends HttpServlet {
+@WebServlet("/miniboard/detail")
+public class ArticleDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long articleId = Long.parseLong(req.getParameter("id"));
@@ -52,6 +52,6 @@ public class MiniboardListDetailServlet extends HttpServlet {
         CommentDao commentDao = new CommentDao();
         commentDao.addComment(comment);
 
-        resp.sendRedirect("/miniboard/list/detail?id=" + articleId);
+        resp.sendRedirect("/miniboard/detail?id=" + articleId);
     }
 }

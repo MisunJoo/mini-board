@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/miniboard/logout")
-public class MiniboardLogoutServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();

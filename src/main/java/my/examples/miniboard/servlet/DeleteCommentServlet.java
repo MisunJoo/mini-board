@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/miniboard/delete")
-public class MiniboardDeleteCommentServlet extends HttpServlet {
+public class DeleteCommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -32,7 +32,7 @@ public class MiniboardDeleteCommentServlet extends HttpServlet {
             boolean result = commentDao.deleteComment(commentId);
 
             if (result) {
-                resp.sendRedirect("/miniboard/list/detail?id=" + articleId);
+                resp.sendRedirect("/miniboard/detail?id=" + articleId);
             }
 
         } catch (RuntimeException ex) {

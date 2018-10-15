@@ -47,7 +47,7 @@
 
             <%-- 댓글 입력창 --%>
             <c:if test="${sessionScope.authUser != null}">
-                <form method="POST" action="/miniboard/list/detail">
+                <form method="POST" action="/miniboard/detail">
                     <input type="hidden" name="articleId" value="${requestScope.article.id}">
                     <input type="hidden" name="userId" value="${sessionScope.authUser.id}">
                     <%--<div>${requestScope.article.userId}</div>--%>

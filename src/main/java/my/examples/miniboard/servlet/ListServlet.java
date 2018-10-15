@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/miniboard/list")
-public class MiniboardListServlet extends HttpServlet {
+public class ListServlet extends HttpServlet {
 // ListServlet에서는 전체 글을 다 보여준다.
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
