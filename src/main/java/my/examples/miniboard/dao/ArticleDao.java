@@ -69,35 +69,35 @@ public class ArticleDao {
             String sql;
 
             if (country == null){
-                sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article  ORDER BY id";
+                sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article  ORDER BY id desc";
 
             } else if (country.equals("korean")){
-                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' ORDER BY id";
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' ORDER BY id desc";
                 else if (category.equals("promotion"))
-                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'promotion' ORDER BY id";
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'promotion' ORDER BY id desc";
                 else
-                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'review' ORDER BY id";
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'korean' and category = 'review' ORDER BY id desc";
 
             } else if (country.equals("chinese")){
-                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinenes' ORDER BY id";
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinenes' ORDER BY id desc";
                 else if (category.equals("promotion"))
-                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'promotion' ORDER BY id";
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'promotion' ORDER BY id desc";
                 else
-                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'review' ORDER BY id";
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'chinese' and category = 'review' ORDER BY id desc";
 
             } else if (country.equals("western")){
-                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western'ORDER BY id";
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western'ORDER BY id desc";
                 else if (category.equals("promotion"))
-                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'promotion' ORDER BY id";
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'promotion' ORDER BY id desc";
                 else
-                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'review' ORDER BY id";
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'western' and category = 'review' ORDER BY id desc";
 
             } else {
-                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' ORDER BY id";
+                if (category == null)  sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' ORDER BY id desc";
                 else if (category.equals("promotion"))
-                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'promotion' ORDER BY id";
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'promotion' ORDER BY id desc";
                 else
-                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'review' ORDER BY id";
+                    sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE country = 'japanese' and category = 'review' ORDER BY id desc";
 
             }
 
@@ -109,6 +109,7 @@ public class ArticleDao {
             while (rs.next()) {
                 Article article = new Article();
                 article.setId(rs.getLong(1));
+                article.setUserId(rs.getLong(2));
                 article.setCountry(rs.getString(3));
                 article.setCategory(rs.getString(4));
                 article.setTitle(rs.getString(5));
