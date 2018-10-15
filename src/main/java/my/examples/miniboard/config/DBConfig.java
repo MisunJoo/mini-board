@@ -4,7 +4,10 @@ import java.sql.*;
 import java.util.Properties;
 
 public class DBConfig {
-    public static Connection connect() {
+
+    private static DBConfig dbConfig;
+
+    public static Connection connect () {
         Connection conn = null;
 
         Properties prop = new Properties();
@@ -23,26 +26,30 @@ public class DBConfig {
         return conn;
     }
 
-    public static void close(Connection conn, PreparedStatement ps) {
+    public static void close (Connection conn, PreparedStatement ps){
         if (ps != null) {
             try {
                 ps.close();
-            } catch (SQLException e) {}
+            } catch (SQLException e) {
+            }
         }
 
         if (conn != null) {
             try {
                 conn.close();
-            } catch (SQLException e) {}
+            } catch (SQLException e) {
+            }
         }
     }
 
-    public static void close(Connection conn, PreparedStatement ps, ResultSet rs) {
+    public static void close (Connection conn, PreparedStatement ps, ResultSet rs){
         if (rs != null) {
             try {
                 rs.close();
-            } catch (SQLException e) {}
+            } catch (SQLException e) {
+            }
         }
         close(conn, ps);
     }
+
 }

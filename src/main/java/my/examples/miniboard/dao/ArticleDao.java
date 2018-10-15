@@ -12,6 +12,10 @@ import java.util.List;
 public class ArticleDao {
     public List<Article> getArticleList(String country, String category) {
         List<Article> articleList = new ArrayList<>();
+
+        
+
+
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
