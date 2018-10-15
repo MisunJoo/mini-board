@@ -10,12 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDao {
-//    String country;
-//    String category;
-
-    public ArticleDao(){
-    }
-
     public List<Article> getAllArticleList() {
         List<Article> articleList = new ArrayList<>();
         Connection conn = null;
@@ -59,10 +53,6 @@ public class ArticleDao {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-
-//        this.country = country;
-//        this.category = category;
-
 
         try {
             conn = DBConfig.connect();
