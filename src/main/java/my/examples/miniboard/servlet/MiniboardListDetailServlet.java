@@ -34,6 +34,7 @@ public class MiniboardListDetailServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         Long articleId = Long.parseLong(req.getParameter("articleId"));
         Long userId = Long.parseLong(req.getParameter("userId"));
         String content = req.getParameter("content");
