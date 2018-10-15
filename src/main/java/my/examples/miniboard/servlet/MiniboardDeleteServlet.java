@@ -26,20 +26,23 @@ public class MiniboardDeleteServlet extends HttpServlet {
         Long articleId = Long.parseLong(req.getParameter("articleId"));
 
         ArticleDao articleDao = new ArticleDao();
-        Article article = articleDao.getArticle(articleId);
+        try {
+            Article article = articleDao.getArticle(articleId);
 
-        //댓글 삭제 후, 댓글 목록 다시 불러옴
-        CommentDao commentDao = new CommentDao();
-        boolean result = commentDao.deleteComment(commentId);
-        List<Comment> commentList = commentDao.getCommentList(articleId);
+            //댓글 삭제 후, 댓글 목록 다시 불러옴
+            CommentDao commentDao = new CommentDao();
+            boolean result = commentDao.deleteComment(commentId);
+            List<Comment> commentList = commentDao.getCommentList(articleId);
 
-        req.setAttribute("article", article);
-        req.setAttribute("commentList", commentList);
+            req.setAttribute("article", article);
+            req.setAttribute("commentList", commentList);
 
-
-        if(result) {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/articleDetail.jsp");
-            dispatcher.forward(req, resp);
+            if(result) {
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/articleDetail.jsp");
+                dispatcher.forward(req, resp);
+            }
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
         }
     }
 }

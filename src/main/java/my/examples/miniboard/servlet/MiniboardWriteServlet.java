@@ -56,8 +56,12 @@ public class MiniboardWriteServlet extends HttpServlet {
         // DB에 삽입한다
         ArticleDao articleDao = new ArticleDao();
         Article article = new Article(userId, country, category, title, content);
-        int count = articleDao.addArticle(article);
-        System.out.println("현재 글 수: " + count);
+        try {
+            int count = articleDao.addArticle(article);
+            System.out.println("현재 글 수: " + count);
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+        }
 
         // /guestbook/list로 redirect
         resp.sendRedirect("/miniboard/list");

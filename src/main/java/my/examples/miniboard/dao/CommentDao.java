@@ -40,7 +40,7 @@ public class CommentDao {
                 commentList.add(comment);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps, rs);
         }
@@ -64,8 +64,8 @@ public class CommentDao {
 //            ps.setString(4, comment.getContent());
 //            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
             count = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps);
         }
@@ -93,8 +93,8 @@ public class CommentDao {
 
 
 
-        } catch (SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex){
+            throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps);
         }

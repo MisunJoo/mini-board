@@ -20,13 +20,17 @@ public class MiniboardListDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long articleId = Long.parseLong(req.getParameter("id"));
         ArticleDao articleDao = new ArticleDao();
-        Article article = articleDao.getArticle(articleId);
-        req.setAttribute("article", article);
+        try {
+            Article article = articleDao.getArticle(articleId);
+            req.setAttribute("article", article);
 
-        // 해당 article의 id에 해당하는 comment들을 불러온다.
-        CommentDao commentDao = new CommentDao();
-        List<Comment> commentList = commentDao.getCommentList(articleId);
-        req.setAttribute("commentList", commentList);
+            // 해당 article의 id에 해당하는 comment들을 불러온다.
+            CommentDao commentDao = new CommentDao();
+            List<Comment> commentList = commentDao.getCommentList(articleId);
+            req.setAttribute("commentList", commentList);
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+        }
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/articleDetail.jsp");
         dispatcher.forward(req, resp);

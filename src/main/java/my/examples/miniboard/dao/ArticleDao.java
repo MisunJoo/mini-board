@@ -77,7 +77,7 @@ public class ArticleDao {
                 articleList.add(article);
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps, rs);
         }
@@ -101,8 +101,8 @@ public class ArticleDao {
             ps.setString(4, article.getTitle());
             ps.setString(5, article.getContent());
             count = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps);
         }
@@ -140,7 +140,7 @@ public class ArticleDao {
 
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps, rs);
         }

@@ -23,9 +23,13 @@ public class MiniboardListServlet extends HttpServlet {
         String category = req.getParameter("category");
         System.out.println("나라선택" + country);
 
-        List<Article> articles = articleDao.getArticleList(country, category);
-        req.setAttribute("articleList", articles);
-        req.setAttribute("articleListSize", articles.size());
+        try {
+            List<Article> articles = articleDao.getArticleList(country, category);
+            req.setAttribute("articleList", articles);
+            req.setAttribute("articleListSize", articles.size());
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+        }
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/list.jsp");
         requestDispatcher.forward(req, resp);
