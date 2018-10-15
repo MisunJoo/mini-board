@@ -2,21 +2,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>회원가입 페이지</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>회원가입</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Song+Myung|Yeon+Sung" rel="stylesheet">
 </head>
-<body>
-<h1>Sign Up</h1>
+<body class="bg">
+<div class="list-wrapper">
+    <div class="list-body">
+        <h1>Sign Up</h1>
+        <form method="post" action="/miniboard/signup">
+            아이디 : <input type="text" name="name" required><br>
+            암호 : <input type="password" name="password" required minlength="3" maxlength="20"><br>
 
-<form method="post" action="/miniboard/signup">
-    아이디 : <input type="text" name="name" required><br>
-    암호 : <input type="password" name="password" required minlength="3" maxlength="20"><br>
+            <input type="submit">
+        </form>
 
-    <input type="submit">
-</form>
-
-<c:if test="${sessionScope.isExistingUser == true}">
-    <p style="color: red">이미 가입된 아이디입니다.</p>
-</c:if>
-
+        <c:if test="${sessionScope.isExistingUser == true}">
+            <p style="color: red">이미 가입된 아이디입니다.</p>
+        </c:if>
+    </div>
+</div>
 </body>
 </html>
