@@ -28,6 +28,7 @@
         <p>[${requestScope.article.country}] [${requestScope.article.category}]</p>
         <p class="article-content">${requestScope.article.content}</p><br>
 
+<<<<<<< HEAD
         <%-- 댓글 목록 --%>
         <c:forEach items="${requestScope.commentList}" var="comment">
             <div class="comment">
@@ -52,6 +53,30 @@
             <form method="POST" action="/miniboard/list/detail">
                 <input type="hidden" name="articleId" value="${requestScope.article.id}">
                 <input type="hidden" name="userId" value="${requestScope.article.userId}">
+=======
+            <%-- 댓글 목록 --%>
+            <c:forEach items="${requestScope.commentList}" var="comment">
+                <div class="comment">
+                    댓글 id: ${comment.id}
+                    글 번호 : ${comment.articleId}
+                    댓글 쓴 id : ${comment.userId}
+                    <p>${comment.userId} (${comment.regDate})</p>
+                    <p>${comment.content}</p>
+                </div>
+                <%--댓글 id: ${comment.id}--%>
+                <%--article_id: ${comment.articleId}--%>
+                <%--자신이 입력한 댓글일 경우 삭제버튼 보임 --%>
+                <c:if test="${comment.userId == sessionScope.authUser.id}">
+                    <a href="/miniboard/delete?article1=${requestScope.article.id}&comment1=${comment.id}"><button>삭제</button></a>
+                </c:if><br>
+            </c:forEach>
+
+            <%-- 댓글 입력창 --%>
+            <c:if test="${sessionScope.authUser != null}">
+                <form method="POST" action="/miniboard/list/detail">
+                    <input type="hidden" name="articleId" value="${requestScope.article.id}">
+                    <input type="hidden" name="userId" value="${sessionScope.authUser.id}">
+>>>>>>> origin/develop
                     <%--<div>${requestScope.article.userId}</div>--%>
                 <textarea id="content" name="content" rows="4" cols="70"></textarea>
                 <div><input type="submit" value="댓글 등록"/></div>

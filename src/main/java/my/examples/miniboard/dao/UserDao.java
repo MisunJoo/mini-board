@@ -30,7 +30,7 @@ public class UserDao {
                 userList.add(user);
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps, rs);
         }
@@ -50,7 +50,7 @@ public class UserDao {
             ps.setString(2, user.getPassword());
             count = ps.executeUpdate();
         }catch(Exception ex){
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }finally {
             DBConfig.close(conn, ps);
         }
@@ -66,7 +66,7 @@ public class UserDao {
 
         try {
             conn = DBConfig.connect();
-            String sql = "SELECT * FROM user WHERE name = ?";
+            String sql = "SELECT id, name, password FROM user WHERE name = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             rs = ps.executeQuery();
@@ -77,8 +77,8 @@ public class UserDao {
                 user.setName(rs.getString(2));
                 user.setPassword(rs.getString(3));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps, rs);
         }

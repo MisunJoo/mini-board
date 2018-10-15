@@ -32,28 +32,32 @@ public class MiniboardSignupServlet extends HttpServlet {
         UserDao userDao = new UserDao();
         HttpSession session = req.getSession();
 
-        // 이미 가입된 ID일 경우
-        if (userDao.getUser(name) != null) {
-            session.setAttribute("isExistingUser", true);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/signup.jsp");
-            dispatcher.forward(req, resp);
-        }
-        // user 테이블에 회원정보 추가
-        else {
-            session.setAttribute("isExistingUser", false);
-            int count = userDao.addUser(user);
+        try {
+            // 이미 가입된 ID일 경우
+            if (userDao.getUser(name) != null) {
+                session.setAttribute("isExistingUser", true);
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/signup.jsp");
+                dispatcher.forward(req, resp);
+            }
+            // user 테이블에 회원정보 추가
+            else {
+                session.setAttribute("isExistingUser", false);
+                int count = userDao.addUser(user);
 
-            // DB에 추가한 회원정보 확인
-            List<User> userList = userDao.getUserList();
-            String getName = userList.get(userList.size()-1).getName();
-            String getPassword = userList.get(userList.size()-1).getPassword();
+                // DB에 추가한 회원정보 확인
+                List<User> userList = userDao.getUserList();
+                String getName = userList.get(userList.size() - 1).getName();
+                String getPassword = userList.get(userList.size() - 1).getPassword();
 
-            System.out.println(getName + "(" + getPassword + ") 가입됨. 현재 user " + count + "명.");
+                System.out.println(getName + "(" + getPassword + ") 가입됨. 현재 user " + count + "명.");
 
-            // LoginServlet으로 forwarding하여 로그인까지 바로 처리
-            System.out.println("회원가입 완료. LoginServlet으로 forwarding.");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/miniboard/login");
-            dispatcher.forward(req, resp);
+                // LoginServlet으로 forwarding하여 로그인까지 바로 처리
+                System.out.println("회원가입 완료. LoginServlet으로 forwarding.");
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/miniboard/login");
+                dispatcher.forward(req, resp);
+            }
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
         }
     }
 }
