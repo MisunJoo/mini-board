@@ -77,7 +77,7 @@ public class UserDao {
                 user.setName(rs.getString(2));
                 user.setPassword(rs.getString(3));
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps, rs);

@@ -1,55 +1,46 @@
 package my.examples.miniboard.config;
 
 import java.sql.*;
-import java.util.Properties;
 
 public class DBConfig {
-
-    private static DBConfig dbConfig;
-
-    public static Connection connect () {
+    public static Connection connect() {
+        DBProperties dbProperties = DBProperties.getInstance();
         Connection conn = null;
 
-        Properties prop = new Properties();
+        String jdbcDriver = dbProperties.getJdbcDriver();
+        String dbUrl = dbProperties.getDbUrl();
+        String dbUser = dbProperties.getDbUser();
+        String dbPassword = dbProperties.getDbPassword();
         try {
-            prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties"));
-            String jdbcDriver = prop.getProperty("jdbcDriver");
-            String dbUrl = prop.getProperty("dbUrl");
-            String dbUser = prop.getProperty("dbUser");
-            String dbPassword = prop.getProperty("dbPassword");
             Class.forName(jdbcDriver);
             conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
         return conn;
     }
 
-    public static void close (Connection conn, PreparedStatement ps){
+    public static void close(Connection conn, PreparedStatement ps) {
         if (ps != null) {
             try {
                 ps.close();
-            } catch (SQLException e) {
-            }
+            } catch (SQLException e) {}
         }
 
         if (conn != null) {
             try {
                 conn.close();
-            } catch (SQLException e) {
-            }
+            } catch (SQLException e) {}
         }
     }
 
-    public static void close (Connection conn, PreparedStatement ps, ResultSet rs){
+    public static void close(Connection conn, PreparedStatement ps, ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();
-            } catch (SQLException e) {
-            }
+            } catch (SQLException e) {}
         }
         close(conn, ps);
     }
-
 }

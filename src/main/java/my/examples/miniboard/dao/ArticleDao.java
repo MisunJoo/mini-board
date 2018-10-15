@@ -105,7 +105,7 @@ public class ArticleDao {
             ps.setString(4, article.getTitle());
             ps.setString(5, article.getContent());
             count = ps.executeUpdate();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps);
@@ -143,7 +143,7 @@ public class ArticleDao {
                 article.setRegDate(ldt);
 
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps, rs);

@@ -39,7 +39,7 @@ public class CommentDao {
 
                 commentList.add(comment);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps, rs);
@@ -61,10 +61,8 @@ public class CommentDao {
             ps.setLong(1, comment.getArticleId());
             ps.setLong(2, comment.getUserId());
             ps.setString(3, comment.getContent());
-//            ps.setString(4, comment.getContent());
-//            ps.setTimestamp(6, java.sql.Timestamp.valueOf(article.getRegDate()));
             count = ps.executeUpdate();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps);
@@ -72,7 +70,6 @@ public class CommentDao {
 
         return count;
     }
-
 
     public boolean deleteComment(Long commentId){
         boolean result = false;
@@ -83,24 +80,17 @@ public class CommentDao {
             conn = DBConfig.connect();
             String sql = "DELETE FROM comment WHERE id = ? ";
             ps = conn.prepareStatement(sql);
-
             ps.setLong(1, commentId);
 
             int a = ps.executeUpdate();
-
             if(a > 0) result = true;
             else result = false;
 
-
-
-        } catch (SQLException ex){
+        } catch (Exception ex){
             throw new RuntimeException(ex);
         } finally {
             DBConfig.close(conn, ps);
         }
-
-
         return result;
     }
-
 }
