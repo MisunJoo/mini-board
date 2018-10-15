@@ -18,7 +18,7 @@ public class CommentDao {
 
         try {
             conn = DBConfig.connect();
-            String sql = "SELECT * FROM comment WHERE article_id = ?";
+            String sql = "SELECT id, article_id, user_id, content, reg_date FROM comment WHERE article_id = ?";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, articleId);
             rs = ps.executeQuery();

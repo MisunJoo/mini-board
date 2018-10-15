@@ -66,7 +66,7 @@ public class UserDao {
 
         try {
             conn = DBConfig.connect();
-            String sql = "SELECT * FROM user WHERE name = ?";
+            String sql = "SELECT id, name, password FROM user WHERE name = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             rs = ps.executeQuery();

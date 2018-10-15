@@ -10,44 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDao {
-    public List<Article> getAllArticleList() {
-        List<Article> articleList = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        try {
-            conn = DBConfig.connect();
-            String sql = "SELECT * FROM article";
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Article article = new Article();
-                article.setId(rs.getLong(1));
-                article.setUserId(rs.getLong(2));
-                article.setCountry(rs.getString(3));
-                article.setCategory(rs.getString(4));
-                article.setTitle(rs.getString(5));
-                article.setContent(rs.getString(6));
-                Date sqlDate = rs.getDate(7);
-                java.util.Date date = new java.util.Date(sqlDate.getTime());
-                LocalDateTime ldt = date.toInstant()
-                        .atZone(ZoneId.systemDefault())
-                        .toLocalDateTime();
-                article.setRegDate(ldt);
-
-                articleList.add(article);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            DBConfig.close(conn, ps, rs);
-        }
-
-        return articleList;
-    }
-
     public List<Article> getArticleList(String country, String category) {
         List<Article> articleList = new ArrayList<>();
         Connection conn = null;
@@ -156,7 +118,7 @@ public class ArticleDao {
 
         try {
             conn = DBConfig.connect();
-            String sql = "SELECT * FROM article WHERE id = ?";
+            String sql = "SELECT id, user_id, country, category, title, content, reg_date FROM article WHERE id = ?";
             ps = conn.prepareStatement(sql);
             ps.setLong(1, articleId);
             rs = ps.executeQuery();
